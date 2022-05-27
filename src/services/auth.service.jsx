@@ -1,7 +1,10 @@
+import { useState, useEffect } from "react"
 import { useLocation, Navigate } from "react-router-dom"
 import { useAuth } from "../utils/context"
+import axios from "axios"
+import { BASEURL } from "../utils/constants"
 
-function RequireAuth({ children }) {
+export function RequireAuth({ children }) {
   let auth = useAuth();
   let location = useLocation();
   if (!auth.user) {
@@ -10,4 +13,49 @@ function RequireAuth({ children }) {
   return children;
 }
 
-export { RequireAuth }
+
+export function RegisterUser(userForm) {
+  const url = `${BASEURL}/user/registration`
+  const [data, setData] = useState({})
+  const [isLoading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
+
+  const bearerToken = JSON.parse(localStorage.getItem('user')).token
+  const bearerTokenHeader = bearerToken === undefined ? `"Authorization": ${bearerToken}`: ''
+    
+  useEffect(() => {
+  
+    if (!url) return
+  
+    async function fetchData() {
+      try {
+        const response = await axios(url, {
+          headers:{
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': 'http://localhost:3000',
+          'Access-Control-Allow-Headers': 'Content-Type',
+          bearerTokenHeader
+          }
+        })
+
+        const data = await response
+        setData(data)
+        if(response.status > 299){
+          setError(true)
+        } 
+      }
+      catch(err) {
+        console.log(err)
+        setError(true)
+      }
+      finally {
+        setLoading(false)
+      }
+    }
+
+    setLoading(true)
+    fetchData()
+  }, [url, bearerTokenHeader])
+  
+  return { isLoading, data, error }
+}

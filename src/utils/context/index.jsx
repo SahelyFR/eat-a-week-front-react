@@ -51,7 +51,7 @@ export function useAuth() {
 let SeasonContext = createContext(null);
 
 export function SeasonProvider({ children }) {
-  let [season, setSeason] = useState(0)
+  const [season, setSeason] = useState(0)
 
   const PRINTEMPS = 80
   const ETE = 172

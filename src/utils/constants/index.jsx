@@ -16,3 +16,5 @@ export const SEASON_CONFIG = [{
   color: '#2196F3',
   icon: 'ac_unit'
 }]
+
+export const BASEURL = 'http://localhost:8080'

@@ -6,8 +6,7 @@ export function useFetch(url) {
   const [data, setData] = useState({})
   const [isLoading, setLoading] = useState(true)
   const [error, setError] = useState(false)
-
-  const bearerToken = JSON.parse(localStorage.getItem('user')).token
+  const bearerToken = useToken()
     
   useEffect(() => {
   
@@ -45,4 +44,8 @@ export function useFetch(url) {
   
   return { isLoading, data, error }
   
+}
+
+export function useToken(){
+  return JSON.parse(localStorage.getItem('user')).token
 }

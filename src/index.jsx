@@ -10,6 +10,7 @@ import { HomePage } from './Pages/Home'
 import { RecettesPage } from './Pages/Recettes'
 import { Layout } from './components/Layout'
 import { RegisterPage } from './Pages/Register'
+import Recette from './components/Recette'
 
 import "primereact/resources/themes/lara-light-teal/theme.css"
 import "primereact/resources/primereact.min.css"                
@@ -30,6 +31,14 @@ root.render(
             element={
               <RequireAuth>
                 <RecettesPage />
+              </RequireAuth>
+            }
+          />
+          {/* :filter handles recette id and "add" keyword for new recette */}
+          <Route path="/protected/recette/:filter" 
+            element={
+              <RequireAuth>
+                <Recette />
               </RequireAuth>
             }
           />

@@ -9,15 +9,13 @@ import {Alert, AlertTitle, Rating, Icon } from "@mui/material"
 import { SEASON_CONFIG as seasons } from "../../utils/constants"
 
 import './style.css'
-
-
-const BASEURL = 'http://localhost:8080/recettes'
+import { BASEURL } from "../../utils/constants"
 
 export function RecettesPage() {
   const { filter } = useParams()
   const msgs1 = useRef()
   const param = filter === 'all' ? '' : filter
-  const { data, isLoading, error } = useFetch(`${BASEURL}/${param}`)
+  const { data, isLoading, error } = useFetch(`${BASEURL}/recettes/${param}`)
   const recettes = data?.data
 
   const [layout, setLayout] = useState('grid')
@@ -46,14 +44,22 @@ export function RecettesPage() {
     return (
       <div className="col-12">
         <div className="product-list-item">
-          <img src={`images/product/${data.image}`} onError={(e) => e.target.src='recipe_default.png'} alt={data.name} />
+          <img 
+            src={data.image}
+            onError={(e) => 
+              e.target.src='recipe_default.png'} 
+            alt={data.name} />
           <div className="product-list-detail">
             <div className="product-name">{data.name}</div>
             <Rating value={data.rating} readOnly ></Rating>
           </div>
           <div className="product-list-action">
             
-            <Button icon="pi pi-external-link" label="Visit" disabled={data.link === ''}></Button>
+            <Button
+              icon="pi pi-external-link"
+              label="Visit"
+              disabled={data.link === ''}>
+            </Button>
             {seasons.map((season) => (
               data[season.name] ? <Icon 
                 style={{ backgroundColor: season.color, color: '#ffffff'}}
@@ -81,12 +87,20 @@ export function RecettesPage() {
               ))}
           </div>
           <div className="product-grid-item-content">
-          <img src={`images/product/${data.image}`} onError={(e) => e.target.src='/recipe_default.png'} alt={data.name} />
+          <img 
+            src={data.image} 
+            onError={(e) => 
+              e.target.src='/recipe_default.png'} 
+            alt={data.name} />
             <div className="product-name">{data.name}</div>
             <Rating value={data.rating} readOnly ></Rating>
           </div>
           <div className="product-grid-item-bottom">
-            <Button icon="pi pi-external-link" label="Visit" disabled={data.link === ''}></Button>
+            <Button
+              icon="pi pi-external-link"
+              label="Visit"
+              disabled={data.link === ''}>
+            </Button>
           </div>
         </div>
       </div>
@@ -108,7 +122,9 @@ export function RecettesPage() {
     return (
       <div className="grid grid-nogutter">
         <div className="col-6" style={{textAlign: 'left'}}>
-          <DataViewLayoutOptions layout={layout} onChange={(e) => setLayout(e.value)} />
+          <DataViewLayoutOptions 
+            layout={layout} 
+            onChange={(e) => setLayout(e.value)} />
         </div>
       </div>
     );
@@ -120,8 +136,13 @@ export function RecettesPage() {
     <div className="dataview-demo">
       { isLoading ? (<ProgressSpinner />) : (
         <div className="card">
-          <DataView value={recettes} layout={layout} header={header}
-            itemTemplate={itemTemplate} paginator rows={9} />
+          <DataView
+            value={recettes}
+            layout={layout}
+            header={header}
+            itemTemplate={itemTemplate}
+            paginator
+            rows={12} />
         </div>
       )
     }
