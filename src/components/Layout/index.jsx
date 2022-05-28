@@ -1,11 +1,11 @@
 import { Outlet, useNavigate } from "react-router-dom"
 import { useAuth } from '../../utils/context'
-import getSeason from "../../utils/seasonUtils"
+import useSeason from "../../utils/hooks"
 import { Menubar } from 'primereact/menubar'
 import { InputText } from "primereact/inputtext"
 
 export function Layout() {
-  const saison = getSeason()
+  const saison = useSeason()
   const auth = useAuth()
   const navigate = useNavigate()
   const storedUser = localStorage.getItem('user')

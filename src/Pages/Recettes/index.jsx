@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom"
 import { ProgressSpinner } from 'primereact/progressspinner'
 import { DataView, DataViewLayoutOptions } from 'primereact/dataview'
 import { Button } from "primereact/button"
+import { Dropdown } from 'primereact/dropdown'
 import {Alert, AlertTitle, Rating } from "@mui/material"
 
 import './style.css'
@@ -19,6 +20,27 @@ export function RecettesPage() {
   const recettes = data?.data
 
   const [layout, setLayout] = useState('grid')
+  const [sortKey, setSortKey] = useState('name')
+  const [sortOrder, setSortOrder] = useState(1)
+  const [sortField, setSortField] = useState('name')
+  const sortOptions = [
+      {label: 'Name A -> Z', value: 'name'},
+      {label: 'Name Z -> A', value: '!name'},
+  ]
+  const onSortChange = (event) => {
+    const value = event.value;
+
+    if (value.indexOf('!') === 0) {
+      setSortOrder(-1);
+      setSortField(value.substring(1, value.length));
+      setSortKey(value);
+    }
+    else {
+      setSortOrder(1);
+      setSortField(value);
+      setSortKey(value);
+    }
+  }
 
   useEffect(() => {
     msgs1.current ={
@@ -114,6 +136,9 @@ export function RecettesPage() {
             layout={layout} 
             onChange={(e) => setLayout(e.value)} />
         </div>
+        <div className="col-6" style={{textAlign: 'right'}}>
+          <Dropdown options={sortOptions} value={sortKey} optionLabel="label" placeholder="Sort By Name" onChange={onSortChange}/>
+        </div>
       </div>
     );
   }
@@ -130,6 +155,8 @@ export function RecettesPage() {
             header={header}
             itemTemplate={itemTemplate}
             paginator
+            sortOrder={sortOrder}
+            sortField={sortField}
             rows={12} />
         </div>
       )

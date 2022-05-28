@@ -58,10 +58,10 @@ function Recette() {
     const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value
     
     setPreview(true)
-    setRecette(recette => ({
+    setRecette({
       ...recette,
       [elmt]: value
-    }))
+    })
     reset(recette)
   }
 
@@ -132,12 +132,12 @@ function Recette() {
             {
               SEASONS.map((saison) => {
               return (
-                <div className="field-checkbox" key={`div-${recette.id}-${saison}`}>
-                  <input type="checkbox" {...register(`${saison}`)}
-                    key={`checkbox-${recette.id}-${saison}`}
+                <div className="field-checkbox" key={`div-${recette.id}-${saison.name}`}>
+                  <input type="checkbox" {...register(`${saison.name}`)}
+                    key={`checkbox-${recette.id}-${saison.name}`}
                     onChange={(e) => onChange(e)}
-                    checked={recette[saison]} />
-                  <label className="lbl-checkbox" htmlFor={saison}>{saison}</label>
+                    checked={recette[saison.name]} />
+                  <label className="lbl-checkbox" htmlFor={saison.name}>{saison.name}</label>
                 </div>
                 )
               })
