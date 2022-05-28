@@ -26,9 +26,9 @@ export const RegisterPage = () => {
   const navigation = useNavigate()
   const toast = useRef(null)
 
-  const register = (formData) => {
-    formData.password = btoa(formData.password)
-    setFormData(formData)
+  const register = (formulaire) => {
+    formulaire.password = btoa(formulaire.password)
+    setFormData(formulaire)
     
     axios.post(`${BASEURL}/register`, formData, {
       headers: {

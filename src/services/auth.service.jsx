@@ -14,7 +14,7 @@ export function RequireAuth({ children }) {
 }
 
 
-export function RegisterUser(userForm) {
+export function RegisterUser() {
   const url = `${BASEURL}/user/registration`
   const [data, setData] = useState({})
   const [isLoading, setLoading] = useState(true)
@@ -38,8 +38,8 @@ export function RegisterUser(userForm) {
           }
         })
 
-        const data = await response
-        setData(data)
+        const newUser = await response
+        setData(newUser)
         if(response.status > 299){
           setError(true)
         } 

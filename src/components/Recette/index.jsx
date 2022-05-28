@@ -92,11 +92,11 @@ function Recette() {
         }, 1500);
       }
     })
-    .catch(error => {
+    .catch(err => {
       toast.current.show({
         severity: 'error',
         summary: 'Something went wrong',
-        detail: error,
+        detail: err,
       })
     })
   }

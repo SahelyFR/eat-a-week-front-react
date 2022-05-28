@@ -113,9 +113,6 @@
   .dataview-demo .product-list-item .product-list-action {
       display: flex;
       flex-direction: column;
-  }
-
-  .dataview-demo .product-list-item .product-list-action {
       margin-top: 2rem;
       flex-direction: row;
       justify-content: space-between;

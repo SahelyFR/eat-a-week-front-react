@@ -1,15 +1,15 @@
 import { useEffect, useRef, useState } from "react"
 import { useParams } from "react-router-dom"
-import { useFetch } from "../../utils/hooks"
+
 import { ProgressSpinner } from 'primereact/progressspinner'
 import { DataView, DataViewLayoutOptions } from 'primereact/dataview'
 import { Button } from "primereact/button"
-
-import {Alert, AlertTitle, Rating, Icon } from "@mui/material"
-import { SEASON_CONFIG as seasons } from "../../utils/constants"
+import {Alert, AlertTitle, Rating } from "@mui/material"
 
 import './style.css'
 import { BASEURL } from "../../utils/constants"
+import { SeasonIcons } from "../../components/SeasonIcons"
+import { useFetch } from "../../utils/hooks"
 
 export function RecettesPage() {
   const { filter } = useParams()
@@ -40,66 +40,54 @@ export function RecettesPage() {
     )
   }
 
-  const renderListItem = (data) => {
+  const renderListItem = (recette) => {
     return (
       <div className="col-12">
         <div className="product-list-item">
           <img 
-            src={data.image}
+            src={recette.image}
             onError={(e) => 
               e.target.src='recipe_default.png'} 
-            alt={data.name} />
+            alt={recette.name} />
           <div className="product-list-detail">
-            <div className="product-name">{data.name}</div>
-            <Rating value={data.rating} readOnly ></Rating>
+            <div className="product-name">{recette.name}</div>
+            <Rating value={recette.rating} readOnly ></Rating>
           </div>
           <div className="product-list-action">
             
             <Button
               icon="pi pi-external-link"
               label="Visit"
-              disabled={data.link === ''}>
+              disabled={recette.link === ''}>
             </Button>
-            {seasons.map((season) => (
-              data[season.name] ? <Icon 
-                style={{ backgroundColor: season.color, color: '#ffffff'}}
-                key={`rec-${data.id}-${season.name}`}>
-                {season.icon}
-                </Icon> : null
-              ))}
+            <SeasonIcons recipe={recette} />
           </div>
         </div>
       </div>
     );
   }
 
-  const renderGridItem = (data) => {    
+  const renderGridItem = (rec) => {    
     return (
       <div className="col-12 md:col-3">
         <div className="product-grid-item card">
           <div className="product-grid-item-top">
-            {seasons.map((season) => (
-              data[season.name] ? <Icon 
-                style={{ backgroundColor: season.color, color: '#ffffff'}}
-                key={`rec-${data.id}-${season.name}`}>
-                {season.icon}
-                </Icon> : null
-              ))}
+            <SeasonIcons recipe={rec} />
           </div>
           <div className="product-grid-item-content">
           <img 
-            src={data.image} 
+            src={rec.image} 
             onError={(e) => 
               e.target.src='/recipe_default.png'} 
-            alt={data.name} />
-            <div className="product-name">{data.name}</div>
-            <Rating value={data.rating} readOnly ></Rating>
+            alt={rec.name} />
+            <div className="product-name">{rec.name}</div>
+            <Rating value={rec.rating} readOnly ></Rating>
           </div>
           <div className="product-grid-item-bottom">
             <Button
               icon="pi pi-external-link"
               label="Visit"
-              disabled={data.link === ''}>
+              disabled={rec.link === ''}>
             </Button>
           </div>
         </div>
@@ -107,14 +95,14 @@ export function RecettesPage() {
     );
   }
 
-  const itemTemplate = (product, layout) => {
+  const itemTemplate = (product, dataPrez) => {
     if (!product) {
         return;
     }
 
-    if (layout === 'list')
+    if (dataPrez === 'list')
         return renderListItem(product);
-    else if (layout === 'grid')
+    else if (dataPrez === 'grid')
         return renderGridItem(product);
   }
 

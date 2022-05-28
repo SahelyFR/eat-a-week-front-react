@@ -1,7 +1,8 @@
 import { Outlet, useNavigate } from "react-router-dom"
 import { useAuth } from '../../utils/context'
-import { Menubar } from 'primereact/menubar'
 import getSeason from "../../utils/seasonUtils"
+import { Menubar } from 'primereact/menubar'
+import { InputText } from "primereact/inputtext"
 
 export function Layout() {
   const saison = getSeason()
@@ -74,11 +75,11 @@ export function Layout() {
   }
 
   const start = <img alt="logo" src="showcase/images/logo.png" onError={(e) => e.target.src='https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} height="40" className="mr-2" />;
-  //const end = <InputText placeholder="Search" type="text" />;
+  const end = <InputText placeholder="Search" type="text" />;
 
   return (
     <div>
-      <Menubar start={start} model={items} />
+      <Menubar start={start} model={items} end={end} />
       <Outlet />
     </div>
   );

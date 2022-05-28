@@ -33,9 +33,11 @@ export function AuthProvider({ children }) {
   }
 
   let signout = (callback) => {
-    setUser(null)
-    localStorage.removeItem('user')
-    callback()
+    if(isAuthenticated){
+      setUser(null)
+      localStorage.removeItem('user')
+      callback()
+    }
   }
 
   let value = { user, signin, signout }

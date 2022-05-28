@@ -23,8 +23,8 @@ export function useFetch(url) {
           }
         })
 
-        const data = await response
-        setData(data)
+        const returnedData = await response
+        setData(returnedData)
         if(response.status > 299){
           setError(true)
         } 

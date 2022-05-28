@@ -23,8 +23,6 @@ export function LoginPage() {
   function handleSubmit(event) {
     event.preventDefault()
 
-    let formData = new FormData(event.currentTarget)
-    let username = formData.get("username")
     auth.signin(username, password, (result) => {
       if (result?.status !== 200) {
         if (result?.response?.status === 403) {
