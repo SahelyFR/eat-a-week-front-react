@@ -1,6 +1,8 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
+import { useNavigate } from "react-router-dom"
 import { SEASONS } from "../constants"
+import { useAuth } from '../context'
 
 export function useFetch(url) {
 
@@ -48,16 +50,29 @@ export function useFetch(url) {
 }
 
 export function useToken(){
-  return JSON.parse(localStorage.getItem('user')).token
+  const auth = useAuth()
+  const navigate = useNavigate()
+
+  const storedData = JSON.parse(localStorage.getItem('user'))
+  console.log(`Expires : ${storedData.expires} // Now() : ${Date.now()}`)
+  if(storedData.expires > Date.now()){
+    return storedData.token
+  }else{
+    auth.signout()
+    navigate("/")
+  }
 }
 
 export default function useSeason(){
-  let mySeason = 0
+  let mySeason = "all"
   const today = getToday()
 
   SEASONS.forEach((saison) => {
-    if(today >= saison.startDay && today < saison.endDay){
-      mySeason = saison.name;
+    const test = (today >= saison.startDay && today < saison.endDay) || (saison.name === "winter" && (today >= saison.startDay || today < saison.endDay))
+    console.log(`Is (${today} >= ${saison.startDay} && ${today} < ${saison.endDay}) || (${saison.name} === "winter" && (${today} >= ${saison.startDay} || ${today} < ${saison.endDay})) ? Answer : ${test}`)
+    if (test) {
+      mySeason = saison.name
+      console.log(saison.name)
     }
   })
   return mySeason

@@ -36,6 +36,11 @@ export function Layout() {
           label: 'Recettes de saison',
           icon: 'pi pi-fw pi-heart',
           url: `/protected/recettes/${saison}`
+        },
+        {
+          label: 'Menu de la semaine',
+          icon: 'pi pi-fw pi-book',
+          url: `/protected/menu/${saison}`
         }
       ]
     }

@@ -7,10 +7,11 @@ import { AuthProvider } from './utils/context'
 import { RequireAuth } from './services/auth.service'
 import { LoginPage  } from './Pages/Login'
 import { HomePage } from './Pages/Home'
-import { RecettesPage } from './Pages/Recettes'
+import { RecettesListPage } from './Pages/RecettesList'
 import { Layout } from './components/Layout'
+import { MenuPage } from './Pages/Menu'
 import { RegisterPage } from './Pages/Register'
-import Recette from './components/Recette'
+import { RecettePage } from './Pages/Recette'
 
 import "primereact/resources/themes/lara-light-teal/theme.css"
 import "primereact/resources/primereact.min.css"                
@@ -30,7 +31,7 @@ root.render(
           <Route path="/protected/recettes/:filter"
             element={
               <RequireAuth>
-                <RecettesPage />
+                <RecettesListPage />
               </RequireAuth>
             }
           />
@@ -38,7 +39,14 @@ root.render(
           <Route path="/protected/recette/:filter" 
             element={
               <RequireAuth>
-                <Recette />
+                <RecettePage />
+              </RequireAuth>
+            }
+          />
+          <Route path="/protected/menu/:filter"
+            element={
+              <RequireAuth>
+                <MenuPage />
               </RequireAuth>
             }
           />

@@ -1,0 +1,120 @@
+.cardPreview .product-grid-item {
+  width: 35% !important;
+}
+
+.cardPreview .p-dropdown, .recettesList .p-dropdown {
+  width: 14rem;
+  font-weight: normal;
+}
+
+.cardPreview .product-name, .recettesList .product-name {
+  font-size: 1.3rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+.cardPreview .product-description, .recettesList .product-description {
+  margin: 0 0 1rem 0;
+}
+
+.cardPreview .product-category-icon, .recettesList .product-category-icon {
+  vertical-align: middle;
+  margin-right: .5rem;
+}
+
+.cardPreview .product-category, .recettesList .product-category {
+  font-weight: 600;
+  vertical-align: middle;
+}
+
+.cardPreview .product-list-item, .recettesList .product-list-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  width: 100%;
+}
+
+.cardPreview .product-list-item img, .recettesList .product-list-item img {
+  width: 150px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  margin-right: 2rem;
+}
+
+.cardPreview .product-list-item .product-list-detail,
+.recettesList .product-list-item .product-list-detail {
+  flex: 1 1 0;
+}
+
+.cardPreview .product-list-item .p-rating,
+.recettesList .product-list-item .p-rating {
+  margin: 0 0 .5rem 0;
+}
+
+.cardPreview .product-list-item .product-list-action,
+.recettesList .product-list-item .product-list-action {
+  display: flex;
+  flex-direction: column;
+}
+
+.cardPreview .product-list-item .p-button,
+.recettesList .product-list-item .p-button {
+  margin-bottom: .5rem;
+}
+
+.cardPreview .product-grid-item, .recettesList .product-grid-item {
+  margin: .5em;
+  border: 1px solid var(--surface-border);
+  padding: 2rem;
+}
+
+.cardPreview .product-grid-item .product-grid-item-top,
+.cardPreview .product-grid-item .product-grid-item-bottom,
+.recettesList .product-grid-item .product-grid-item-top,
+.recettesList .product-grid-item .product-grid-item-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cardPreview .product-grid-item img, .recettesList .product-grid-item img {
+  width: 50%;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  margin: 2rem 0;
+}
+
+.cardPreview .product-grid-item .product-grid-item-content,
+.recettesList .product-grid-item .product-grid-item-content {
+  text-align: center;
+}
+
+@media screen and (max-width: 576px) {
+  .cardPreview .product-list-item, .recettesList .product-list-item {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .cardPreview .product-list-item img, .recettesList .product-list-item img {
+      width: 20%;
+      margin: 2rem 0;
+  }
+
+  .cardPreview .product-list-item .product-list-detail,
+  .recettesList .product-list-item .product-list-detail {
+      text-align: center;
+  }
+
+  .cardPreview .product-list-item .product-list-action,
+  .recettesList .product-list-item .product-list-action {
+      display: flex;
+      margin-top: 2rem;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+  }
+  
+}
+               

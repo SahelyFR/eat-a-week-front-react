@@ -1,21 +1,31 @@
-import { Button } from 'primereact/button'
+import { Component } from 'react'
+
 import { Card } from 'primereact/card'
 
-function RecettePreview(props) {
-  const recetteHeader = props.recette.image !== undefined ? 
-    <img src={props.recette.image} alt="Recette" className='recette-image' /> : null
+import RecetteListItem from "../RecetteListItem"
+import RecetteGridItem from '../RecetteGridItem'
 
-  const recetteContent = props.recette.link !== undefined ?
-    <Button label="Voir la recette" /> : null
+import './style.css'
 
-  return (
-    <div className='preview'>
-      { props.isPreview ? (
-      <Card className="cardPreview" title={`Preview ${props.recette.name}`} header={recetteHeader}>
-        {recetteContent}
-      </Card>) : null
-      }
-    </div>)
+class RecettePreview extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      recette: props.recette,
+      isPreview: props.preview
+    }
+  }
+  render() {
+    const rec = this.state.recette
+    return this.state.isPreview ? (
+      <span>
+        <Card className='cardPreview'>
+          <RecetteListItem recette={rec} />
+          <RecetteGridItem recette={rec} />
+        </Card>
+      </span>
+    ) : null
+  }
 }
-
+ 
 export default RecettePreview

@@ -1,5 +1,6 @@
 import { useContext, createContext, useState } from "react"
 import axios from "axios"
+import { SEASONS } from "../constants"
 
 let AuthContext = createContext(null)
 
@@ -17,11 +18,15 @@ export function AuthProvider({ children }) {
         'password': btoa(password)
       }
     }).then(res => {
-      setUser(username)
+      setUser({
+        username: username,
+        role: res.headers.authority
+      })
       setAuthenticated(true)
       localStorage.setItem('user',JSON.stringify({
         user: username,
-        token: res.headers.authorization
+        token: res.headers.authorization,
+        expires: Date.now() +7200 * 1000
       }))
       callback(res)
     }, (reject) => {
@@ -33,14 +38,12 @@ export function AuthProvider({ children }) {
   }
 
   let signout = (callback) => {
-    if(isAuthenticated){
-      setUser(null)
-      localStorage.removeItem('user')
-      callback()
-    }
+    setUser(null)
+    localStorage.removeItem('user')
+    callback()
   }
 
-  let value = { user, signin, signout }
+  let value = { user, isAuthenticated, signin, signout }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
@@ -55,10 +58,10 @@ let SeasonContext = createContext(null);
 export function SeasonProvider({ children }) {
   const [season, setSeason] = useState(0)
 
-  const PRINTEMPS = 80
-  const ETE = 172
-  const AUTOMNE = 264
-  const HIVER = 359
+  const PRINTEMPS = SEASONS[0].startDay
+  const ETE = SEASONS[1].startDay
+  const AUTOMNE = SEASONS[2].startDay
+  const HIVER = SEASONS[3].startDay
   const currentDay = new Date().getDay()
   let mySeason = 0
     
