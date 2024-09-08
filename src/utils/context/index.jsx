@@ -7,21 +7,19 @@ export function AuthProvider({ children }) {
   let [user, setUser] = useState()
   let [isAuthenticated, setAuthenticated] = useState(false)
 
-  let signin = (username, password, callback) => {
-    axios.get('http://localhost:8080/login', {
+  let signin = (email, password, callback) => {
+    axios.post('http://localhost:8080/auth/login', { email, password} , {
       headers:{
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': 'http://localhost:3000',
-        'Access-Control-Allow-Headers': 'Content-Type',
-        'username': btoa(username),
-        'password': btoa(password)
+        'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Origin'
       }
     }).then(res => {
-      setUser(username)
+      setUser(email)
       setAuthenticated(true)
       localStorage.setItem('user',JSON.stringify({
-        user: username,
-        token: res.headers.authorization
+        email: email,
+        token: res.data?.token
       }))
       callback(res)
     }, (reject) => {
