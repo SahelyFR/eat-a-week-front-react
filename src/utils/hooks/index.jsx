@@ -7,7 +7,6 @@ export function useFetch(url) {
   const [data, setData] = useState({})
   const [isLoading, setLoading] = useState(true)
   const [error, setError] = useState(false)
-  const bearerToken = useToken()
     
   useEffect(() => {
   
@@ -19,8 +18,7 @@ export function useFetch(url) {
           headers:{
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': 'http://localhost:3000',
-            'Access-Control-Allow-Headers': 'Content-Type',
-            'Authorization': bearerToken
+            'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Origin'
           }
         })
 
@@ -41,7 +39,7 @@ export function useFetch(url) {
 
     setLoading(true)
     fetchData()
-  }, [url, bearerToken])
+  }, [url])
   
   return { isLoading, data, error }
   

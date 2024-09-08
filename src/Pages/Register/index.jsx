@@ -27,14 +27,13 @@ export const RegisterPage = () => {
   const toast = useRef(null)
 
   const register = (formulaire) => {
-    formulaire.password = btoa(formulaire.password)
     setFormData(formulaire)
     
-    axios.post(`${BASEURL}/register`, formData, {
+    axios.post(`${BASEURL}/auth/register`, formData, {
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': 'http://localhost:3000',
-        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Origin',
       }
     })
     .then(res => {

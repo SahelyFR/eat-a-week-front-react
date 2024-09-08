@@ -15,13 +15,10 @@ export function RequireAuth({ children }) {
 
 
 export function RegisterUser() {
-  const url = `${BASEURL}/user/registration`
+  const url = `${BASEURL}/auth/register`
   const [data, setData] = useState({})
   const [isLoading, setLoading] = useState(true)
   const [error, setError] = useState(false)
-
-  const bearerToken = JSON.parse(localStorage.getItem('user')).token
-  const bearerTokenHeader = bearerToken === undefined ? `"Authorization": ${bearerToken}`: ''
     
   useEffect(() => {
   
@@ -33,8 +30,7 @@ export function RegisterUser() {
           headers:{
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': 'http://localhost:3000',
-          'Access-Control-Allow-Headers': 'Content-Type',
-          bearerTokenHeader
+          'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Origin'
           }
         })
 
@@ -55,7 +51,7 @@ export function RegisterUser() {
 
     setLoading(true)
     fetchData()
-  }, [url, bearerTokenHeader])
+  }, [url])
   
   return { isLoading, data, error }
 }
